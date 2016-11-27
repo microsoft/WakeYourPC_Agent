@@ -1,0 +1,16 @@
+# Common Visual studio ignore
+packages/
+obj/
+bin/
+.vs/
+csx/
+
+# Windows binary ignore
+*.dll
+*.exe
+
+
+
+
+
+
