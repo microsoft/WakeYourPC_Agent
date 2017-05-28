@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Product Id="99038404-2948-4932-A377-FFFB6135F4CF" Name="Wake Your PC Installer" Language="1033" Version="1.0.0.0" Manufacturer="TeamGreen" UpgradeCode="c39700e6-2520-495b-be1c-1d8bc717ee05">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate />
+
+    <Feature Id="ProductFeature" Title="Wake Your PC Agent" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+
+    <UIRef Id="WixUI_InstallDir" />
+
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="TeamGreen">
+          <Directory Id="APPLICATIONFOLDER" Name="Wake Your PC">
+            <Directory Id="UPDATE" Name="Update" />
+          </Directory>
+        </Directory>
+      </Directory>
+    </Directory>
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <Property Id="ApplicationFolderName" Value="My Application Folder" />
+    <Property Id="WixAppFolder" Value="WixPerMachineFolder" />
+    <WixVariable Id="WixUISupportPerUser" Value="0" />
+    <WixVariable Id="WixUILicenseRtf" Value="WakeYourPC_EULA.rtf" />
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents">
+      <Component Id="ProductComponent" Directory="APPLICATIONFOLDER" Guid="45ACE58C-A362-4B99-9158-4C38B4FAB7AB">
+        <File Source="$(var.WypAgent.TargetPath)" />
+        <File Source="$(var.WypAgent.TargetDir)\Newtonsoft.Json.dll" />
+        <ServiceInstall Id="ServiceInstaller" Type="ownProcess" Name="WakeYourPCAgent"
+          DisplayName="Agent for Waking Your PC" Description="Agent for Waking Your PC" Start="auto"
+          Account="[SERVICEACCOUNT]" Password="[SERVICEPASSWORD]" ErrorControl="normal" />
+        <ServiceControl Id="StartService" Start="install" Stop="both" Remove="uninstall"
+                        Name="WakeYourPCAgent" Wait="no" />
+      </Component>
+      <!--
+      <Component Id="Update" Directory="UPDATE">
+        <File Source="$(var.WypAgent.TargetDir)\Update\ReinstallService.bat" />
+      </Component>
+      -->
+    </ComponentGroup>
+  </Fragment>
+
+</Wix>

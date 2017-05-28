@@ -11,7 +11,7 @@ namespace WakeYourPC.WakeUpAgent
     // Used to make REST calls to the azure service
     internal static class ExternalConnector
     {
-        private static readonly string BASE_URL = "http://wakeyourpc.cloudapp.net/v1/";
+        private static readonly string BASE_URL = "http://wakeyourpc.azurewebsites.net/api/v1/";
         private static readonly string WAKEUP_SUFFIX = "Users/{0}/Wakeup";
         private static readonly string MACHINE_SUFFIX = "Users/{0}/Machines";
         private static readonly string USER_SUFFIX = "Users";
