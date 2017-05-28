@@ -38,7 +38,9 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http">
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,6 +63,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="Update\ReinstallService.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -70,10 +75,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
   <Target Name="AfterBuild">
     <Exec Command="copy $(OutputPath)\WakeYourPCAgent.exe ..\..\Deployment\" />
     <Exec Command="copy $(OutputPath)\Newtonsoft.Json.dll ..\..\Deployment\" />
   </Target>
-
 </Project>
